@@ -26,14 +26,12 @@ public class ItemCreator {
 
     public ItemCreator setDisplayName(String displayName) {
         this.meta.setDisplayName(OpenGui.colorize(displayName));
-        applyMeta();
         return this;
     }
 
     public ItemCreator setLore(List<String> lore) {
         lore.replaceAll(OpenGui::colorize);
         this.meta.setLore(lore);
-        applyMeta();
         return this;
     }
 
@@ -45,15 +43,11 @@ public class ItemCreator {
             this.meta.removeEnchant(Enchantment.DURABILITY);
             this.meta.removeItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
-        applyMeta();
         return this;
     }
 
     public ItemStack create() {
-        return this.itemStack;
-    }
-
-    private void applyMeta() {
         this.itemStack.setItemMeta(this.meta);
+        return this.itemStack;
     }
 }

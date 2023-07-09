@@ -19,15 +19,16 @@ public class Gui {
     String title;
     int size;
 
-    List<GuiItem> items = new ArrayList<>();
+    List<GuiItem> items;
 
-    public Gui(String id, String title, int size) {
+    public Gui(String id, String title, int size, List<GuiItem> items) {
         this.id = id;
         this.title = title;
         this.size = size;
+        this.items = items;
     }
 
-    public void openGui(Player player) {
+    public void open(Player player) {
         String finalTitle = OpenGui.colorize(title);
 
         Inventory inventory = Bukkit.createInventory(null, size, finalTitle);
@@ -48,7 +49,7 @@ public class Gui {
         return null;
     }
 
-    public static Gui loadFromFile(File file) {
+    public static Gui loadFromFile(File file, OpenGui plugin) {
 
         YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(file);
 
@@ -63,14 +64,13 @@ public class Gui {
             for (String key : itemsSection.getKeys(false)) {
                 ConfigurationSection itemSection = itemsSection.getConfigurationSection(key);
                 if (itemSection != null) {
-                    GuiItem item = GuiItem.fromSection(itemSection);
+                    GuiItem item = GuiItem.fromSection(itemSection, plugin);
                     items.add(item);
                 }
             }
         }
 
-        Gui gui = new Gui(id, title, size);
-        return gui;
+        return new Gui(id, title, size, items);
     }
 
 }

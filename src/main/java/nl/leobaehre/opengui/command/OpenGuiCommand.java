@@ -19,7 +19,7 @@ public class OpenGuiCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
 
-        if (sender.hasPermission("opengui.reload")) {
+        if (!sender.hasPermission("opengui.reload")) {
             sender.sendMessage("You do not have permission to use this command");
             return true;
         }

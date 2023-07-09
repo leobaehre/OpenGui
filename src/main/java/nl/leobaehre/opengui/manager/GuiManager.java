@@ -33,7 +33,7 @@ public class GuiManager {
 
         for (File file : guiFolder.listFiles()) {
             if (file == null) continue;
-            loadedGuis.add(Gui.loadFromFile(file));
+            loadedGuis.add(Gui.loadFromFile(file, plugin));
         }
     }
 

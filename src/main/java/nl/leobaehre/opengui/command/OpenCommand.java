@@ -1,7 +1,10 @@
 package nl.leobaehre.opengui.command;
 
 import nl.leobaehre.opengui.OpenGui;
+import nl.leobaehre.opengui.model.ConversationAnswer;
 import nl.leobaehre.opengui.model.Gui;
+import nl.leobaehre.opengui.model.ItemAction;
+import nl.leobaehre.opengui.model.action.ConversationAction;
 import nl.leobaehre.opengui.util.TabUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -39,7 +42,19 @@ public class OpenCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        gui.openGui(player);
+        gui.open(player);
+
+        // log the item with the conversation
+        ItemAction action = gui.getItem(13).getActions().get(0);
+        if (action instanceof ConversationAction conversationAction) {
+            openGui.getLogger().info("Conversation: " + conversationAction.getQuestion());
+            for (String answer : conversationAction.getAnswers().keySet()) {
+                openGui.getLogger().info("Answer: " + answer);
+                ConversationAnswer conversationAnswer = conversationAction.getAnswers().get(answer);
+                conversationAnswer.getActions().forEach(a -> openGui.getLogger().info("Action: " + a.getClass().getSimpleName()));
+            }
+        }
+
 
         return true;
     }

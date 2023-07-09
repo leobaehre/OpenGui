@@ -3,6 +3,7 @@ package nl.leobaehre.opengui.listener;
 import nl.leobaehre.opengui.OpenGui;
 import nl.leobaehre.opengui.model.Gui;
 import nl.leobaehre.opengui.model.GuiItem;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -36,7 +37,6 @@ public class GuiListener implements Listener {
         int clickedSlot = event.getSlot();
         GuiItem clickedGuiItem = clickedGui.getItem(clickedSlot);
         if (clickedGuiItem == null) return;
-
         clickedGuiItem.executeActions(player);
     }
 }

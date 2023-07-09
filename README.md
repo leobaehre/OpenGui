@@ -1,7 +1,6 @@
 # OpenGUI
 
-## Description
-A Minecraft plugin that serves as a one-stop-shop for GUIs that can handle basically any sort of GUI, from shops, custom enderchests, GUI-based minigames, and more.
+#### A Minecraft plugin that serves as a one-stop-shop for GUIs that can handle basically any sort of GUI, from shops, custom enderchests, GUI-based minigames, and more.
 
 ## Commands
 * `/open <id>` - Opens a GUI
@@ -35,7 +34,6 @@ items: # The items in the GUI
 Actions are what happens when a player clicks on an item in a GUI. The following are the different types of actions:
 
 ### Close
-
 This action closes the GUI after clicked on the item.   
 
 #### Data
@@ -46,9 +44,23 @@ This action has no data.
 actions:
   - type: close
 ```
+In this example, the GUI will be closed when the item is clicked.
+
+### Open
+This action opens another GUI after clicked on the item.
+
+#### Data
+* `ID`: The ID of the GUI to open
+
+#### Example
+```yaml
+actions:
+  - type: open
+    id: example
+```
+In this example, the GUI with the ID `example` will be opened when the item is clicked.
 
 ### Command
-
 This action runs a command after clicked on the item.
 
 #### Data
@@ -60,8 +72,21 @@ actions:
   - type: command
     command: say Hello World!
 ```
-This example will run the command `/say Hello World!` when the item is clicked. The dispatcher of the command is the server console.
+In this example, the command `say Hello World!` will be run when the item is clicked.
 
+### Conversation
+This action starts a conversation after clicked on the item. If the player is in a conversation then the player can chat a message to input. This input can then be used.
+
+#### Data
+* `Question`: The question to ask the player
+
+#### Example
+```yaml
+actions:
+  - type: conversation
+    question: What is your name?
+```
+In this example, the player will be asked the question `What is your name?` when the item is clicked. The input of the player can then be used in other actions.
 
 ## Source
 https://docs.google.com/document/d/1nQJ-Dr6mMGQUVWeMqmsWmRDZJ7XLZp5VbmtrZCS0kR0
