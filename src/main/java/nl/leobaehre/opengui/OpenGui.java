@@ -60,9 +60,13 @@ public final class OpenGui extends JavaPlugin {
             guiFolder.mkdirs();
         }
 
-        File exampleGuiFile = new File(guiFolder, "example.yml");
-        if (!exampleGuiFile.exists()) {
-            saveResource("guis/example.yml", false);
+        String[] exampleGuiFiles = {"example.yml", "sushigui.yml"};
+
+        for (String exampleGuiFile : exampleGuiFiles) {
+            File exampleGui = new File(guiFolder, exampleGuiFile);
+            if (!exampleGui.exists()) {
+                saveResource("guis/" + exampleGuiFile, false);
+            }
         }
     }
 

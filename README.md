@@ -82,11 +82,24 @@ This action starts a conversation after clicked on the item. If the player is in
 
 #### Example
 ```yaml
-actions:
-  - type: conversation
-    question: What is your name?
+  actions:
+    - type: close # Optional please see the explanation for the example below
+    - type: conversation
+      question: "Do you like sushi?"
+      answers:
+        - answer: "Yes"
+          actions:
+            - type: command
+              command: give %player% minecraft:cod 1
+        - answer: "No"
+          actions:
+            - type: command
+              command: "say Well that sucks :("
+      other-answer:
+        type: command
+        command: "This is not a valid answer!"
 ```
-In this example, the player will be asked the question `What is your name?` when the item is clicked. The input of the player can then be used in other actions.
+In this example, the player will be asked the question `Do you like sushi?`. If the player answers `Yes` then the player will be given a cod. If the player answers `No` then the player will be told `Well that sucks :(`. If the player answers anything else then the player will be told `This is not a valid answer!`. I recommend putting the action `close` GUI is closed when the conversation starts.
 
 ## Source
 https://docs.google.com/document/d/1nQJ-Dr6mMGQUVWeMqmsWmRDZJ7XLZp5VbmtrZCS0kR0

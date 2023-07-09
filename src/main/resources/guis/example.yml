@@ -10,6 +10,7 @@ items:
       - '&fLine 1'
       - '&fLine 2'
     actions:
-      - type: close
+      - type: open
+        id: "sushi"
       - type: command
         command: say Hello World!

@@ -1,0 +1,24 @@
+id: 'sushi'
+title: 'Sushi is yummy!'
+size: 27
+items:
+  item1:
+    slot: 13
+    material: COD
+    display-name: '&aSushi'
+    actions:
+      - type: close
+      - type: conversation
+        question: "Do you like sushi?"
+        answers:
+          - answer: "Yes"
+            actions:
+              - type: command
+                command: give %player% minecraft:cod 1
+          - answer: "No"
+            actions:
+              - type: command
+                command: "say Well that sucks :("
+        other-answer:
+          type: command
+          command: "This is not a valid answer!"
