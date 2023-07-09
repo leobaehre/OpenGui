@@ -1,0 +1,15 @@
+id: 'example'
+title: 'Some Title'
+size: 27
+items:
+  item1:
+    slot: 0
+    material: DIAMOND_SWORD
+    display-name: '&cSpecial Sword'
+    lore:
+      - '&fLine 1'
+      - '&fLine 2'
+    actions:
+      - type: close
+      - type: command
+        command: say Hello World!

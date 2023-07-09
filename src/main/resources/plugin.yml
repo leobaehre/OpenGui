@@ -1,0 +1,9 @@
+name: OpenGui
+version: '${project.version}'
+main: nl.leobaehre.opengui.OpenGui
+api-version: '1.20'
+commands:
+  open:
+    description: Open a GUI
+    usage: /<command> <gui>
+    permission: opengui.open
