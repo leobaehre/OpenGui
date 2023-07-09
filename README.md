@@ -80,7 +80,7 @@ actions:
 In this example, the GUI with the ID `example` will be opened when the item is clicked.
 
 ### Command
-This action runs a command after clicked on the item.
+This action runs a command as the server console after clicked on the item.
 
 #### Data
 * `Command`: The command to run
@@ -120,7 +120,7 @@ This action starts a conversation after clicked on the item. If the player is in
 ```
 In this example, the player will be asked the question `Do you like sushi?`. If the player answers `Yes` then the player will be given a cod. If the player answers `No` then the player will be told `Well that sucks :(`. If the player answers anything else then the player will be told `This is not a valid answer!`. I recommend putting the action `close` GUI is closed when the conversation starts.
 ## Credits
-* Main Developer: [Leo Baehre](https://github.com/leobaehre)
+* Main Developer: [Leo Bähre](https://github.com/leobaehre)
 
 ## Source
 https://docs.google.com/document/d/1nQJ-Dr6mMGQUVWeMqmsWmRDZJ7XLZp5VbmtrZCS0kR0

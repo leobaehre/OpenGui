@@ -2,6 +2,7 @@ package nl.leobaehre.opengui.model.action;
 
 import lombok.AllArgsConstructor;
 import nl.leobaehre.opengui.model.ItemAction;
+import nl.leobaehre.opengui.util.ReplaceUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -19,6 +20,6 @@ public class CommandAction extends ItemAction {
 
     @Override
     public void execute(Player player) {
-        Bukkit.dispatchCommand(sender, command);
+        Bukkit.dispatchCommand(sender, ReplaceUtil.replace(command, "player", player.getName()));
     }
 }
