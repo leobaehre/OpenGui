@@ -67,6 +67,8 @@ public final class OpenGui extends JavaPlugin {
     }
 
     public void createExampleFiles() {
+
+        //-------- Guis --------
         File guiFolder = new File(getDataFolder(), "guis");
         if (!guiFolder.exists() || !guiFolder.isDirectory()) {
             guiFolder.mkdirs();
@@ -78,6 +80,21 @@ public final class OpenGui extends JavaPlugin {
             File exampleGui = new File(guiFolder, exampleGuiFile);
             if (!exampleGui.exists()) {
                 saveResource("guis/" + exampleGuiFile, false);
+            }
+        }
+
+        //-------- Data --------
+        File dataFolder = new File(getDataFolder(), "data");
+        if (!dataFolder.exists() || !dataFolder.isDirectory()) {
+            dataFolder.mkdirs();
+        }
+
+        String[] dataFiles = {"variables.yml"};
+
+        for (String dataFile : dataFiles) {
+            File data = new File(getDataFolder(), dataFile);
+            if (!data.exists()) {
+                saveResource("data/" + dataFile, false);
             }
         }
     }
