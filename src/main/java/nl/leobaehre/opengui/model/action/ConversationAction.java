@@ -6,6 +6,7 @@ import nl.leobaehre.opengui.OpenGui;
 import nl.leobaehre.opengui.manager.ConversationManager;
 import nl.leobaehre.opengui.model.ConversationAnswer;
 import nl.leobaehre.opengui.model.ItemAction;
+import nl.leobaehre.opengui.model.VariableType;
 import org.bukkit.entity.Player;
 
 import java.util.Map;
@@ -15,7 +16,9 @@ import java.util.Map;
 public class ConversationAction extends ItemAction {
 
     String question;
+    String variableName;
     Map<String, ConversationAnswer> answers;
+    String otherAnswer;
 
     @Override
     public void execute(Player player) {
@@ -25,9 +28,10 @@ public class ConversationAction extends ItemAction {
                 return;
             }
             if (!answers.containsKey(answer)) {
-                player.sendMessage(OpenGui.colorize("&cThat is not a valid answer!"));
+                player.sendMessage(OpenGui.colorize(otherAnswer));
                 return;
             }
+            OpenGui.getInstance().getVariableManager().setVariable("answer-" + player.getUniqueId(), answer);
             answers.get(answer).executeActions(player);
         });
     }

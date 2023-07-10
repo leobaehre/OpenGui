@@ -32,7 +32,7 @@ public class GuiManager {
         }
 
         for (File file : guiFolder.listFiles()) {
-            if (file == null) continue;
+            if (file == null || !file.getName().endsWith(".yml")) continue;
             loadedGuis.add(Gui.loadFromFile(file, plugin));
         }
     }

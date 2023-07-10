@@ -2,6 +2,7 @@ package nl.leobaehre.opengui.model;
 
 import lombok.Getter;
 import nl.leobaehre.opengui.OpenGui;
+import nl.leobaehre.opengui.util.ReplaceUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -29,7 +30,7 @@ public class Gui {
     }
 
     public void open(Player player) {
-        String finalTitle = OpenGui.colorize(title);
+        String finalTitle = ReplaceUtil.replace(OpenGui.colorize(title), "player", player.getName());
 
         Inventory inventory = Bukkit.createInventory(null, size, finalTitle);
 

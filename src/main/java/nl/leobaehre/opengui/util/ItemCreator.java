@@ -25,12 +25,12 @@ public class ItemCreator {
     }
 
     public ItemCreator setDisplayName(String displayName) {
-        this.meta.setDisplayName(OpenGui.colorize(displayName));
+        this.meta.setDisplayName(ReplaceUtil.replace(displayName));
         return this;
     }
 
     public ItemCreator setLore(List<String> lore) {
-        lore.replaceAll(OpenGui::colorize);
+        lore.replaceAll(ReplaceUtil::replace);
         this.meta.setLore(lore);
         return this;
     }

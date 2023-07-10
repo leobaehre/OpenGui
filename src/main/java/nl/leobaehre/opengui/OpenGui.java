@@ -6,6 +6,7 @@ import nl.leobaehre.opengui.command.OpenGuiCommand;
 import nl.leobaehre.opengui.listener.ConversationListener;
 import nl.leobaehre.opengui.listener.GuiListener;
 import nl.leobaehre.opengui.manager.GuiManager;
+import nl.leobaehre.opengui.manager.VariableManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -15,12 +16,22 @@ import java.io.File;
 public final class OpenGui extends JavaPlugin {
 
     @Getter
+    private static OpenGui instance;
+
+    @Getter
     private GuiManager guiManager;
+    @Getter
+    private VariableManager variableManager;
 
     @Override
     public void onEnable() {
         // Plugin startup logic
+        instance = this;
+
         createExampleFiles();
+
+        variableManager = new VariableManager(this);
+        variableManager.loadVariables();
 
         guiManager = new GuiManager(this);
         guiManager.loadGuis();
@@ -52,6 +63,7 @@ public final class OpenGui extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        variableManager.saveVariables();
     }
 
     public void createExampleFiles() {

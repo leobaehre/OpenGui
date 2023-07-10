@@ -94,9 +94,10 @@ public class GuiItem {
                 }
                 case "conversation" -> {
                     String question = (String) actionMap.get("question");
+                    String variableName = (String) actionMap.get("variable-name");
                     Map<String, ConversationAnswer> answers = parseConversationAnswers((List<?>) actionMap.get("answers"), plugin);
-                    Bukkit.getLogger().info("Parsed conversation answers: " + answers);
-                    actions.add(new ConversationAction(question, answers));
+                    String otherAnswer = parseActions((List<?>) actionMap.get("other-answer"), plugin).get(0).toString();
+                    actions.add(new ConversationAction(question, variableName, answers, otherAnswer));
                 }
                 default -> throw new IllegalArgumentException("Unknown action type: " + actionType);
             }

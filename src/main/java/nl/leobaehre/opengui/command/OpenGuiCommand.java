@@ -1,6 +1,7 @@
 package nl.leobaehre.opengui.command;
 
 import nl.leobaehre.opengui.OpenGui;
+import nl.leobaehre.opengui.model.Variable;
 import nl.leobaehre.opengui.util.TabUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,20 +25,24 @@ public class OpenGuiCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        if (args.length == 0) {
-            sender.sendMessage(getUsage());
-            return true;
-        }
+        switch (args.length) {
+            case 1 -> {
+                switch (args[0]) {
+                    case "reload" -> {
+                        sender.sendMessage("Reloading OpenGui");
+                        openGui.getGuiManager().loadGuis();
+                    }
+                    default -> sender.sendMessage(getUsage());
+                }
+            }
+            case 2 -> {
+                switch (args[0]) {
+                    case "getvariable" -> sender.sendMessage("Value of variable " + args[1] + ": " + openGui.getVariableManager().getVariable(args[1]).getValue());
 
-        switch (args[0]) {
-            case "reload":
-                sender.sendMessage("Reloading OpenGui");
-                openGui.getGuiManager().loadGuis();
-
-                break;
-            default:
-                sender.sendMessage(getUsage());
-                break;
+                    default -> sender.sendMessage(getUsage());
+                }
+            }
+            default -> sender.sendMessage(getUsage());
         }
 
         return true;
@@ -46,14 +51,19 @@ public class OpenGuiCommand implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String s, String[] args) {
 
-            if (args.length == 1) {
-                return TabUtil.complete(args[0], List.of("reload"));
+            switch (args.length) {
+                case 1 -> {
+                    return TabUtil.complete(args[0], List.of("reload", "getvariable"));
+                }
+                case 2 -> {
+                    return TabUtil.complete(args[1], openGui.getVariableManager().getVariables().stream().map(Variable::getName).toList());
+                }
             }
 
             return null;
     }
 
     private String getUsage() {
-        return OpenGui.colorize("&cUsage: /opengui reload");
+        return OpenGui.colorize("&cUsage: /opengui <reload|getvariable>");
     }
 }

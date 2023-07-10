@@ -4,9 +4,9 @@
 
 ## Quick Installation
 1. Download the latest version of the plugin from the [releases page](https://github.com/leobaehre/OpenGui/releases).
-2. Put the plugin in your plugins folder.
+2. Put the plugin in your `plugins` folder.
 3. Start the server.
-4. Create or edit a the guis files in the `guis` folder to your liking.
+4. Create or edit a guis files in the `guis` folder to your liking.
 5. Run the command `/opengui reload` to reload the plugin. Or restart the server.
 6. Run the command `/open <id>` to open a GUI.
 7. Enjoy!
@@ -16,6 +16,9 @@
   * `id` - Put here the ID of the GUI you want to open
 * `opengui <reload>` - Reloads the plugin
   * `reload` - Reload the plugin
+* `opengui <getvariable> <name>` - Gets a variable
+  * `getvariable` - Get a variable
+  * `name` - The name of the variable to get
 
 ## Configuration
 
@@ -40,6 +43,12 @@ items: # The items in the GUI
       - type: command
         command: say Hello World!
 ```
+
+### Data files
+Data files are there to store data of the plugin. This data can be set manually in the data files but it is recommended to use the commands to set the data. The following are the data files:
+
+### File: variables.yml
+This file stores the variables that can be used in GUIs. For more information on variables, please see the variables section.
 
 ## Items
 Items work are a bit more restrictive than the normal spigot items you may be used to. There are currently a limited properties than can be set (more will be added in the future). The following are the properties of an item:
@@ -94,31 +103,66 @@ actions:
 In this example, the command `say Hello World!` will be run when the item is clicked.
 
 ### Conversation
-This action starts a conversation after clicked on the item. If the player is in a conversation then the player can chat a message to input. This input can then be used.
+This action starts a conversation after clicked on the item. If the player is in a conversation then the player can chat a message to input. This input can then be used in a variable.
 
 #### Data
 * `Question`: The question to ask the player
 
 #### Example
 ```yaml
-  actions:
-    - type: close # Optional please see the explanation for the example below
-    - type: conversation
-      question: "Do you like sushi?"
-      answers:
-        - answer: "Yes"
-          actions:
-            - type: command
-              command: give %player% minecraft:cod 1
-        - answer: "No"
-          actions:
-            - type: command
-              command: "say Well that sucks :("
-      other-answer:
-        type: command
-        command: "This is not a valid answer!"
+actions:
+  - type: close # Optional please see the explanation for the example below
+  - type: conversation
+    question: "Do you like sushi?"
+    variable-name: "answer"
+    answers:
+      - answer: "Yes"
+        actions:
+          - type: command
+            command: give %player% minecraft:cod 1
+      - answer: "No"
+        actions:
+          - type: command
+            command: "say Well that sucks :("
+    other-answer:
+    - type: command
+      command: "say That's not a valid answer!"
 ```
-In this example, the player will be asked the question `Do you like sushi?`. If the player answers `Yes` then the player will be given a cod. If the player answers `No` then the player will be told `Well that sucks :(`. If the player answers anything else then the player will be told `This is not a valid answer!`. I recommend putting the action `close` GUI is closed when the conversation starts.
+In this example, the player will be asked the question `Do you like sushi?`. If the player answers `Yes` then the player will be given a cod. If the player answers `No` then the player will be told `Well that sucks :(`. If the player answers anything else then the player will be told `This is not a valid answer!`. I recommend putting the action `close` GUI is closed when the conversation starts. The variable `%player%` is explained below in the variables section.
+
+## Variables
+Variables are used to replace text with other text. A variable is surrounded by `%` signs. For example, `%player%` will be replaced with the player's name. There are a number of that are supported by default. These variables are not saved in the datafile.
+
+### Default Variables
+* `player`: The player's name
+
+### Custom Variables
+
+#### Variable types
+| Type    | Example        |
+|---------|----------------|
+| String  | "Hello World!" |
+| Integer | 34             |
+| Double  | 12.53          |
+| Boolean | true           |
+
+#### Creating a custom variable
+
+Custom variables can be created by using the `variable-name` property in the `conversation` action. For example, if you have the following action:
+```yaml
+actions:
+  - type: conversation
+    question: "What is your name?"
+    variable-name: "name"
+```
+Then you can use the variable `%name%` in any action in the GUI. For example:
+
+```yaml
+actions:
+  - type: command
+    command: "say Hello %name%!"
+```
+
 ## Credits
 * Main Developer: [Leo Bähre](https://github.com/leobaehre)
 

@@ -1,0 +1,4 @@
+test:
+  value: 'Hello World!'
+number:
+  value: 1.523
